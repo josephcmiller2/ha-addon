@@ -111,6 +111,7 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                     thingList = data.thingList;
                     console.log('Jia ~ file: getThings.ts ~ line 25 ~ thingList', JSON.stringify(thingList, null, 2));
                     _loop_1 = function (i) {
+                        console.log(typeof i);
                         var item = thingList[i];
                         var deviceIndex = item.index;
                         if (item.itemType === 1 || item.itemType === 2) {

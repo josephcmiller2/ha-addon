@@ -117,7 +117,6 @@ CloudPowerDetectionSwitchController.prototype.updateSwitch = function (status) {
  * @description 更新状态到HA
  */
 CloudPowerDetectionSwitchController.prototype.updateState = function (_a) {
-    console.log("CloudPowerDetectionSwitchController.prototype.updateState");
     var power = _a.power, current = _a.current, voltage = _a.voltage, status = _a.status;
     return __awaiter(this, void 0, void 0, function () {
         var state, attributes, res;

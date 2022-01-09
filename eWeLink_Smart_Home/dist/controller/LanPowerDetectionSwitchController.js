@@ -108,7 +108,6 @@ LanPowerDetectionSwitchController.prototype.setSwitch = function (status) {
  * @description 更新状态到HA
  */
 LanPowerDetectionSwitchController.prototype.updateState = function (params) {
-    console.log("LanPowerDetectionSwitchController.prototype.updateState()");
     return __awaiter(this, void 0, void 0, function () {
         var power, current, voltage, status, state, attributes, res;
         return __generator(this, function (_a) {
