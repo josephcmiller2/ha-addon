@@ -112,10 +112,8 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                     console.log('Jia ~ file: getThings.ts ~ line 25 ~ thingList', JSON.stringify(thingList, null, 2));
                     _loop_1 = function (i) {
                         var item = thingList[i];
-                        console.log(typeof item);
+                        console.log(item);
                         var deviceIndex = item.index;
-                        console.log("Item type:");
-                        console.log(item.itemType);
                         if (item.itemType === 1 || item.itemType === 2) {
                             var _c = item.itemData, extra = _c.extra, deviceid = _c.deviceid, name_1 = _c.name, params = _c.params, devicekey = _c.devicekey, apikey = _c.apikey, tags = _c.tags;
                             var old_1 = Controller_1.default.getDevice(deviceid);
@@ -124,7 +122,6 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                             }
                             // 如果设备已经存在并且是Lan设备就添加该设备的deviceKey
                             if (old_1 instanceof LanDeviceController_1.default && !uiid_1.unsupportedLanModeUiidSet.has(extra.uiid) && !uiid_1.unsupportedLanModeModelSet.has(extra.model)) {
-                                console.log("old_1 instanceof LanDeviceController_1.default && !uiid_1.unsupportedLanModeUiidSet.has(extra.uiid) && !uiid_1.unsupportedLanModeModelSet.has(extra.model)");
                                 old_1.devicekey = devicekey;
                                 old_1.selfApikey = apikey;
                                 old_1.deviceName = name_1;
@@ -132,14 +129,12 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                 old_1.params = params;
                                 old_1.index = deviceIndex;
                                 if (old_1 instanceof LanSwitchController_1.default) {
-                                    console.log("old_1 instanceof LanSwitchController_1.default");
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
                                         old_1.updateState(decryptData.switch);
                                     }
                                 }
                                 if (old_1 instanceof LanMultiChannelSwitchController_1.default) {
-                                    console.log("old_1 instanceof LanMultiChannelSwitchController_1.default");
                                     old_1.channelName = tags === null || tags === void 0 ? void 0 : tags.ck_channel_name;
                                     old_1.maxChannel = channelMap_1.getMaxChannelByUiid(extra.uiid);
                                     var decryptData = old_1.parseEncryptedData();
@@ -148,7 +143,6 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                     }
                                 }
                                 if (old_1 instanceof LanDualR3Controller_1.default) {
-                                    console.log("old_1 instanceof LanDualR3Controller_1.default");
                                     old_1.channelName = tags === null || tags === void 0 ? void 0 : tags.ck_channel_name;
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
@@ -157,27 +151,25 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                 }
                                 if (old_1 instanceof LanPowerDetectionSwitchController_1.default) {
                                     console.log("old_1 instanceof LanPowerDetectionSwitchController_1.default");
+                                    console.log(old_1);
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
                                         old_1.updateState(decryptData.switch);
                                     }
                                 }
                                 if (old_1 instanceof LanDoubleColorLightController_1.default) {
-                                    console.log("old_1 instanceof LanDoubleColorLightController_1.default");
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
                                         old_1.updateState(decryptData);
                                     }
                                 }
                                 if (old_1 instanceof LanTandHModificationController_1.default) {
-                                    console.log("old_1 instanceof LanTandHModificationController_1.default");
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
                                         old_1.updateState(decryptData.switch);
                                     }
                                 }
                                 if (old_1 instanceof LanUIID34Controller_1.default) {
-                                    console.log("old_1 instanceof LanUIID34Controller_1.default");
                                     var decryptData = old_1.parseEncryptedData();
                                     if (decryptData) {
                                         var switches = old_1.parseMdnsData2Ck(decryptData);
@@ -185,7 +177,6 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                     }
                                 }
                                 if (old_1 instanceof LanRFBridgeController_1.default) {
-                                    console.log("old_1 instanceof LanRFBridgeController_1.default");
                                     old_1.tags = tags;
                                     if (Array.isArray(params.rfList)) {
                                         params.rfList.forEach(function (_a) {
@@ -223,20 +214,16 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                 index: deviceIndex,
                             });
                             if (device instanceof CloudSwitchController_1.default) {
-                                console.log("device instanceof CloudSwitchController_1.default");
                                 !device.disabled && device.updateState(params.switch);
                             }
                             if (device instanceof CloudTandHModificationController_1.default || device instanceof LanTandHModificationController_1.default) {
-                                console.log("device instanceof CloudTandHModificationController_1.default || device instanceof LanTandHModificationController_1.default");
                                 !device.disabled && device.updateState(params.switch);
                                 !device.disabled && device.updateTandH(params.currentTemperature, params.currentHumidity);
                             }
                             if (device instanceof CloudRGBBulbController_1.default) {
-                                console.log("device instanceof CloudRGBBulbController_1.default");
                                 !device.disabled && device.updateState(device.parseCkData2Ha(params));
                             }
                             if (device instanceof CloudDimmingController_1.default) {
-                                console.log("device instanceof CloudDimmingController_1.default");
                                 !device.disabled &&
                                     device.updateState({
                                         status: params.switch,
@@ -244,7 +231,6 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                     });
                             }
                             if (device instanceof CloudPowerDetectionSwitchController_1.default) {
-                                console.log("device instanceof CloudPowerDetectionSwitchController_1.default");
                                 var status_1 = params.switch, power = params.power, voltage = params.voltage, current = params.current;
                                 !device.disabled &&
                                     device.updateState({
@@ -255,63 +241,48 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                     });
                             }
                             if (device instanceof CloudMultiChannelSwitchController_1.default) {
-                                console.log("device instanceof CloudMultiChannelSwitchController_1.default");
                                 !device.disabled && device.updateState(params.switches);
                             }
                             if (device instanceof CloudRGBLightStripController_1.default) {
-                                console.log("device instanceof CloudRGBLightStripController_1.default");
                                 !device.disabled && device.updateState(device.parseCkData2Ha(params));
                             }
                             if (device instanceof CloudDoubleColorBulbController_1.default) {
-                                console.log("device instanceof CloudDoubleColorBulbController_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudUIID104Controller_1.default) {
-                                console.log("device instanceof CloudUIID104Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudDualR3Controller_1.default) {
-                                console.log("device instanceof CloudDualR3Controller_1.default");
                                 !device.disabled && device.updateState(params.switches);
                             }
                             if (device instanceof CloudDW2WiFiController_1.default) {
-                                console.log("device instanceof CloudDW2WiFiController_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudZigbeeUIID1000Controller_1.default) {
-                                console.log("device instanceof CloudZigbeeUIID1000Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudZigbeeUIID1770Controller_1.default) {
-                                console.log("device instanceof CloudZigbeeUIID1770Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudZigbeeUIID2026Controller_1.default) {
-                                console.log("device instanceof CloudZigbeeUIID2026Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudZigbeeUIID3026Controller_1.default) {
-                                console.log("device instanceof CloudZigbeeUIID3026Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudZigbeeUIID4026Controller_1.default) {
-                                console.log("device instanceof CloudZigbeeUIID4026Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudCoverController_1.default) {
-                                console.log("device instanceof CloudCoverController_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudRFBridgeController_1.default) {
-                                console.log("device instanceof CloudRFBridgeController_1.default");
                                 !device.disabled && device.updateState();
                             }
                             if (device instanceof CloudUIID44Controller_1.default) {
-                                console.log("device instanceof CloudUIID44Controller_1.default");
                                 !device.disabled && device.updateState(params);
                             }
                             if (device instanceof CloudUIID34Controller_1.default) {
-                                console.log("device instanceof CloudUIID34Controller_1.default");
                                 !device.disabled && device.updateState(params.switches);
                             }
                         }
